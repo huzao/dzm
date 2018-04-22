@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dazhumei.love.web.dao.AttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.dazhumei.love.web.entity.Attachment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fk_id" property="fkId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="attachment_name" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="attachment_ext" property="attachmentExt" jdbcType="VARCHAR" />
+    <result column="attachment_path" property="attachmentPath" jdbcType="VARCHAR" />
+    <result column="uploader" property="uploader" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="compress_addr" property="compressAddr" jdbcType="VARCHAR" />
+    <result column="attachment_status" property="attachmentStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_id, type, attachment_name, attachment_ext, attachment_path, uploader, upload_time, 
+    compress_addr, attachment_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dzm_attachment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dzm_attachment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dazhumei.love.web.entity.Attachment" >
+    insert into dzm_attachment (id, fk_id, type, 
+      attachment_name, attachment_ext, attachment_path, 
+      uploader, upload_time, compress_addr, 
+      attachment_status)
+    values (#{id,jdbcType=INTEGER}, #{fkId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{attachmentName,jdbcType=VARCHAR}, #{attachmentExt,jdbcType=VARCHAR}, #{attachmentPath,jdbcType=VARCHAR}, 
+      #{uploader,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, #{compressAddr,jdbcType=VARCHAR}, 
+      #{attachmentStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dazhumei.love.web.entity.Attachment" >
+    insert into dzm_attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkId != null" >
+        fk_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="attachmentName != null" >
+        attachment_name,
+      </if>
+      <if test="attachmentExt != null" >
+        attachment_ext,
+      </if>
+      <if test="attachmentPath != null" >
+        attachment_path,
+      </if>
+      <if test="uploader != null" >
+        uploader,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="compressAddr != null" >
+        compress_addr,
+      </if>
+      <if test="attachmentStatus != null" >
+        attachment_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fkId != null" >
+        #{fkId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentExt != null" >
+        #{attachmentExt,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentPath != null" >
+        #{attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploader != null" >
+        #{uploader,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="compressAddr != null" >
+        #{compressAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentStatus != null" >
+        #{attachmentStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dazhumei.love.web.entity.Attachment" >
+    update dzm_attachment
+    <set >
+      <if test="fkId != null" >
+        fk_id = #{fkId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        attachment_name = #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentExt != null" >
+        attachment_ext = #{attachmentExt,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentPath != null" >
+        attachment_path = #{attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploader != null" >
+        uploader = #{uploader,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="compressAddr != null" >
+        compress_addr = #{compressAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentStatus != null" >
+        attachment_status = #{attachmentStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dazhumei.love.web.entity.Attachment" >
+    update dzm_attachment
+    set fk_id = #{fkId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      attachment_name = #{attachmentName,jdbcType=VARCHAR},
+      attachment_ext = #{attachmentExt,jdbcType=VARCHAR},
+      attachment_path = #{attachmentPath,jdbcType=VARCHAR},
+      uploader = #{uploader,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      compress_addr = #{compressAddr,jdbcType=VARCHAR},
+      attachment_status = #{attachmentStatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

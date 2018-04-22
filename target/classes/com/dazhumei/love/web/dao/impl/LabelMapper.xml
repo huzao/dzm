@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dazhumei.love.web.dao.LabelMapper" >
+  <resultMap id="BaseResultMap" type="com.dazhumei.love.web.entity.Label" >
+    <id column="label_id" property="labelId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    label_id, title, type, pid, url, rank, user_id, create_time, state
+  </sql>
+  
+  <!-- 查询某人的所有书签 -->
+  <select id="selectAllLabelByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dzm_label
+    where type=1 and state=1 user_id = #{userId,jdbcType=INTEGER}
+    order by rank
+  </select>
+  
+    <!-- 查询某人的所有主题 -->
+  <select id="selectAllThemeByUserId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dzm_label
+    where type=0 and state=1 and user_id = #{userId,jdbcType=INTEGER}
+    order by rank
+  </select>
+  
+    <!-- 查询某人的所以地址 -->
+  <select id="selectAllUrlByUserId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dzm_label
+    where type=1 and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dzm_label
+    where label_id = #{labelId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dazhumei.love.web.entity.Label" >
+    insert into dzm_label (label_id, title, type, 
+      pid, url, rank, user_id, 
+      create_time, state)
+    values (#{labelId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 添加书签 -->
+  <insert id="addLabel" parameterType="com.dazhumei.love.web.entity.Label" >
+    insert into dzm_label
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        label_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="1==1" >
+        create_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="labelId != null" >
+        #{labelId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="1==1" >
+        NOW(),
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dazhumei.love.web.entity.Label" >
+    update dzm_label
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where label_id = #{labelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dazhumei.love.web.entity.Label" >
+    update dzm_label
+    set title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
+    where label_id = #{labelId,jdbcType=INTEGER}
+  </update>
+</mapper>
